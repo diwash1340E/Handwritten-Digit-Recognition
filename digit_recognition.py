@@ -1,5 +1,3 @@
-#--Network according to the paper
-
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -177,7 +175,6 @@ def visualize_weights(W, layer_idx=1, layer_size=25, img_shape=(28, 28)):
     plt.tight_layout()
     plt.show()
 
-
 def visualize_activations(W, b, x_sample, layers, sample_idx=0):
     # Forward propagate a single sample
     a = {0: x_sample[:, sample_idx].reshape(-1, 1)}  # Shape: (784, 1)
@@ -198,9 +195,6 @@ def visualize_activations(W, b, x_sample, layers, sample_idx=0):
 
 start = time.time()
 
-
-
-    
     #Tensorflow importing mnist data set   
     # Load MNIST dataset
 (x_train, y_train), (x_test, y_test) = mnist.load_data()
@@ -213,21 +207,20 @@ x_test = x_test.astype('float32') / 255
 x_train = x_train.reshape(-1, 784).T  # Shape: (784, 60000)
 x_test = x_test.reshape(-1, 784).T    # Shape: (784, 10000)
     
-samples_train = 6
-samples_test = 1
+samples_train = 6000
+samples_test = 1000
     
 # Subsample to 5000 train and 1000 test
 x = x_train[:, :samples_train]  # Shape: (784, 5000)
 y_train = y_train[:samples_train]      # Shape: (5000,)
 x_test = x_test[:, :samples_test]    # Shape: (784, 1000)
 y_test_sample = y_test[:samples_test]       # Shape: (1000,)
-       
-        
+         
 #variables
 
-layers = [785, 10, 10, 1]
-epoch = 8000
-alpha = 0.1
+layers = [784, 25, 25, 10]
+epoch = 5000
+alpha = 0.01
 lam = 10 
         
 print(f"hidden layers: {layers}")
@@ -292,11 +285,8 @@ for k in range(0, epoch):
          test_accuracies.append(test_accuracy)
          
 y_hat = a[len(layers)-1]
-    #num = compute_numerical_gradient(cost_func(y,y_hat,W), W[1])
-    #print(num)
-    
-    # --- Plotting costs ---
-    
+
+    # --- Plotting costs ---    
     # Plot training and test cost
 plt.figure(figsize=(18, 5))
     
